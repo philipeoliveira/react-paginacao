@@ -1,73 +1,87 @@
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
 import { users } from './data/users';
+import { useState } from 'react';
+import { Button } from './components/Button';
+import { Table } from './components/table/Table';
+import { TableHeader } from './components/table/TableHeader';
+import { TableCell } from './components/table/TableCell';
+import { TableRow } from './components/table/TableRow';
 
 function App() {
+   const [page, setPage] = useState(1);
+
+   const totalPages = Math.ceil(users.length / 10);
+
+   function goToFirstPage() {
+      setPage(1);
+   }
+
+   function goToNextPage() {
+      setPage(page + 1);
+   }
+
+   function goToPreviousPage() {
+      setPage(page - 1);
+   }
+
+   function goToLastPage() {
+      setPage(totalPages);
+   }
+
    return (
       <div className='max-w-6xl mx-auto flex flex-col gap-6 p-6'>
          <h1 className='text-4xl'>Paginação com React</h1>
-         <div className='border border-gray-300 rounded-lg'>
-            <table className='w-full'>
-               <thead>
-                  <tr className='border-b border-gray-300'>
-                     <th className='p-3 text-left'>Código</th>
-                     <th className='p-3 text-left'>Nome</th>
-                     <th className='p-3 text-left'>E-mail</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  {users.map((user) => {
-                     return (
-                        <tr key={user.id} className='border-b border-gray-300'>
-                           <td className='py-2 px-3 text-zinc-400'>{user.id}</td>
-                           <td className='py-2 px-3 text-zinc-400'>{user.name}</td>
-                           <td className='py-2 px-3 text-zinc-400'>{user.email}</td>
-                        </tr>
-                     );
-                  })}
-               </tbody>
-               <tfoot>
-                  <tr>
-                     <td colSpan={1} className='py-2 px-3 text-zinc-400 text-sm'>
-                        10 de 228
-                     </td>
-                     <td
-                        colSpan={20}
-                        className='py-2 px-3 text-zinc-400 text-sm text-right'
-                     >
-                        <div className='flex items-center justify-end gap-4'>
-                           <span>Página 1 de 23</span>
-                           <div className='flex gap-0.5'>
-                              <button
-                                 type='button'
-                                 className='bg-zinc-400 border border-zinc-950 text-zinc-950 rounded-lg p-1 hover:bg-zinc-300'
-                              >
-                                 <ChevronsLeft size={18} />
-                              </button>
-                              <button
-                                 type='button'
-                                 className='bg-zinc-400 border border-zinc-950 text-zinc-950 rounded-lg p-1 hover:bg-zinc-300'
-                              >
-                                 <ChevronLeft size={18} />
-                              </button>
-                              <button
-                                 type='button'
-                                 className='bg-zinc-400 border border-zinc-950 text-zinc-950 rounded-lg p-1 hover:bg-zinc-300'
-                              >
-                                 <ChevronsRight size={18} />
-                              </button>
-                              <button
-                                 type='button'
-                                 className='bg-zinc-400 border border-zinc-950 text-zinc-950 rounded-lg p-1 hover:bg-zinc-300'
-                              >
-                                 <ChevronRight size={18} />
-                              </button>
-                           </div>
+         <Table>
+            <thead>
+               <TableRow>
+                  <TableHeader>Código</TableHeader>
+                  <TableHeader>Nome</TableHeader>
+                  <TableHeader>Sobrenome</TableHeader>
+                  <TableHeader>E-mail</TableHeader>
+               </TableRow>
+            </thead>
+            <tbody>
+               {users.slice((page - 1) * 10, page * 10).map((user) => {
+                  return (
+                     <TableRow key={user.id}>
+                        <TableCell>{user.id}</TableCell>
+                        <TableCell>{user.firstName}</TableCell>
+                        <TableCell>{user.lastName}</TableCell>
+                        <TableCell>{user.email}</TableCell>
+                     </TableRow>
+                  );
+               })}
+            </tbody>
+            <tfoot>
+               <tr>
+                  <TableCell colSpan={2} className='text-sm'>
+                     10 de {users.length}
+                  </TableCell>
+
+                  <TableCell colSpan={2} className='text-sm text-right'>
+                     <div className='flex items-center justify-end gap-4'>
+                        <span>
+                           Página {page} de {totalPages}
+                        </span>
+                        <div className='flex gap-0.5'>
+                           <Button onClick={goToFirstPage} disabled={page === 1}>
+                              <ChevronsLeft size={18} />
+                           </Button>
+                           <Button onClick={goToPreviousPage} disabled={page === 1}>
+                              <ChevronLeft size={18} />
+                           </Button>
+                           <Button onClick={goToNextPage} disabled={page === totalPages}>
+                              <ChevronRight size={18} />
+                           </Button>
+                           <Button onClick={goToLastPage} disabled={page === totalPages}>
+                              <ChevronsRight size={18} />
+                           </Button>
                         </div>
-                     </td>
-                  </tr>
-               </tfoot>
-            </table>
-         </div>
+                     </div>
+                  </TableCell>
+               </tr>
+            </tfoot>
+         </Table>
       </div>
    );
 }
