@@ -1,4 +1,5 @@
 import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
+import { users } from './data/users';
 
 function App() {
    return (
@@ -14,14 +15,12 @@ function App() {
                   </tr>
                </thead>
                <tbody>
-                  {Array.from({ length: 8 }).map((_, i) => {
+                  {users.map((user) => {
                      return (
-                        <tr key={i} className='border-b border-gray-300'>
-                           <td className='py-2 px-3 text-zinc-400'>48123</td>
-                           <td className='py-2 px-3 text-zinc-400'>Fulano de Tal</td>
-                           <td className='py-2 px-3 text-zinc-400'>
-                              fulanodetal@emailfake.com.br
-                           </td>
+                        <tr key={user.id} className='border-b border-gray-300'>
+                           <td className='py-2 px-3 text-zinc-400'>{user.id}</td>
+                           <td className='py-2 px-3 text-zinc-400'>{user.name}</td>
+                           <td className='py-2 px-3 text-zinc-400'>{user.email}</td>
                         </tr>
                      );
                   })}
