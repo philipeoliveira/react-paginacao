@@ -1,6 +1,8 @@
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
-import { users } from './data/users';
 import { useState } from 'react';
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react';
+
+import { users } from './data/users';
+
 import { Button } from './components/Button';
 import { Table } from './components/table/Table';
 import { TableHeader } from './components/table/TableHeader';
