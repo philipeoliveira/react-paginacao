@@ -1,3 +1,5 @@
-export function TableHeader({ children }) {
-   return <th className='p-3 text-left'>{children}</th>;
+import { twMerge } from 'tailwind-merge';
+
+export function TableHeader({ children, className }) {
+   return <th className={twMerge('p-3 text-left', className)}>{children}</th>;
 }

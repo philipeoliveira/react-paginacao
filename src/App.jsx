@@ -32,14 +32,14 @@ function App() {
 
    return (
       <div className='max-w-6xl mx-auto flex flex-col gap-6 p-6'>
-         <h1 className='text-4xl'>Paginação com React</h1>
+         <h1 className='text-4xl max-sm:text-3xl'>Paginação com React</h1>
          <Table>
             <thead>
                <TableRow>
                   <TableHeader>Código</TableHeader>
                   <TableHeader>Nome</TableHeader>
                   <TableHeader>Sobrenome</TableHeader>
-                  <TableHeader>E-mail</TableHeader>
+                  <TableHeader className='max-sm:hidden'>E-mail</TableHeader>
                </TableRow>
             </thead>
             <tbody>
@@ -49,7 +49,7 @@ function App() {
                         <TableCell>{user.id}</TableCell>
                         <TableCell>{user.firstName}</TableCell>
                         <TableCell>{user.lastName}</TableCell>
-                        <TableCell>{user.email}</TableCell>
+                        <TableCell className='max-sm:hidden'>{user.email}</TableCell>
                      </TableRow>
                   );
                })}
@@ -61,7 +61,7 @@ function App() {
                   </TableCell>
 
                   <TableCell colSpan={2} className='text-sm text-right'>
-                     <div className='flex items-center justify-end gap-4'>
+                     <div className='flex max-sm:flex-col items-center justify-end gap-4 py-3'>
                         <span>
                            Página {page} de {totalPages}
                         </span>
