@@ -32,7 +32,9 @@ function App() {
 
    return (
       <div className='max-w-6xl mx-auto flex flex-col gap-6 p-6'>
-         <h1 className='text-4xl max-sm:text-3xl'>Paginação com React</h1>
+         <h1 className='bg-gray-400 text-gray-950 text-4xl max-sm:text-3xl font-medium p-2 my-2 text-center rounded-lg'>
+            Paginação com React
+         </h1>
          <Table>
             <thead>
                <TableRow>
