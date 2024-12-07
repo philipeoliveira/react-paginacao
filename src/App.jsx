@@ -18,6 +18,8 @@ import { TableRow } from './components/table/TableRow';
 function App() {
    const [page, setPage] = useState(1);
 
+   const currentItems = users.slice((page - 1) * 10, page * 10);
+
    const totalPages = Math.ceil(users.length / 10);
 
    function goToFirstPage() {
@@ -53,7 +55,7 @@ function App() {
                      </TableRow>
                   </thead>
                   <tbody>
-                     {users.slice((page - 1) * 10, page * 10).map((user) => {
+                     {currentItems.map((user) => {
                         return (
                            <TableRow key={user.id}>
                               <TableCell>{user.id}</TableCell>
@@ -68,43 +70,53 @@ function App() {
                   </tbody>
                   <tfoot>
                      <tr>
-                        <TableCell colSpan={2} className='text-sm'>
-                           10 de {users.length}
-                        </TableCell>
-                        <TableCell colSpan={2} className='text-sm text-right'>
-                           <div className='flex max-sm:flex-col items-center justify-end gap-4 py-3'>
+                        <TableCell colSpan={4} className='text-sm'>
+                           <div className='flex justify-between gap-4 py-3'>
+                              <span>
+                                 {currentItems.length} de {users.length}
+                              </span>
                               <span>
                                  Página {page} de {totalPages}
                               </span>
-                              <div className='flex gap-0.5'>
-                                 <Button onClick={goToFirstPage} disabled={page === 1}>
-                                    <ChevronsLeft size={18} />
-                                 </Button>
-                                 <Button onClick={goToPreviousPage} disabled={page === 1}>
-                                    <ChevronLeft size={18} />
-                                 </Button>
-                                 <Button
-                                    onClick={goToNextPage}
-                                    disabled={page === totalPages}
-                                 >
-                                    <ChevronRight size={18} />
-                                 </Button>
-                                 <Button
-                                    onClick={goToLastPage}
-                                    disabled={page === totalPages}
-                                 >
-                                    <ChevronsRight size={18} />
-                                 </Button>
-                              </div>
                            </div>
                         </TableCell>
                      </tr>
                   </tfoot>
                </Table>
+               <div className='flex justify-center gap-0.5'>
+                  <Button
+                     onClick={goToFirstPage}
+                     disabled={page === 1}
+                     title='Primeira página'
+                  >
+                     <ChevronsLeft size={18} />
+                  </Button>
+                  <Button
+                     onClick={goToPreviousPage}
+                     disabled={page === 1}
+                     title='Página anterior'
+                  >
+                     <ChevronLeft size={18} />
+                  </Button>
+                  <Button
+                     onClick={goToNextPage}
+                     disabled={page === totalPages}
+                     title='Próxima página'
+                  >
+                     <ChevronRight size={18} />
+                  </Button>
+                  <Button
+                     onClick={goToLastPage}
+                     disabled={page === totalPages}
+                     title='Última página'
+                  >
+                     <ChevronsRight size={18} />
+                  </Button>
+               </div>
             </div>
          </main>
          <footer>
-            <p className='flex gap-1 justify-center light-text dark:dark-text text-sm p-4 border-t border-zinc-400'>
+            <p className='flex gap-1 justify-center text-sm p-4 border-t border-zinc-400'>
                Desenvolvido por{' '}
                <a
                   href='https://github.com/philipeoliveira'
